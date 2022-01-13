@@ -1,0 +1,151 @@
+-- 주석은 이렇게...
+SELECT * FROM EMP;
+--DESC emp;
+--DESC bonus;
+
+-- 여러 정보 한번에 가져오기
+SELECT ename,empno,job FROM emp;
+
+-- 중복 제거 명령어 distinct
+SELECT deptno from emp;             -- 중복자료 그대로 포함
+SELECT ALL deptno from emp;       -- 중복자료 그대로 포함(기본값이므로 안써도 됨)
+SELECT distinct deptno from emp;   -- 중복자료 제거
+
+SELECT distinct deptno,job from emp; 
+
+--ex) 급여정보 가져오기
+SELECT ENAME, SAL FROM EMP;
+SELECT ENAME, SAL, COMM, SAL*12+COMM AS ANNUALINCOME FROM EMP;
+SELECT ENAME, SAL AS 월급, COMM AS 추가수당, SAL*12+COMM AS 연봉 FROM EMP;
+
+-- 급여가 제일 높은사람
+-- ORDER BT   정렬 명령어 보통 맨 뒤에 씀.
+SELECT * FROM EMP
+-- ORDER BY SAL ASC     -- ASC오름차순 정렬(작은수부터) 기본값, 안써도 됨
+-- ORDER BY SAL DESC    --  DESC 붙으면 내림차순(큰수부터)
+ORDER BY DEPTNO ASC, SAL DESC    --  ASC 와 DESC 혼합활용
+;
+
+-- 조건을 추가하는 WHERE
+SELECT * FROM EMP
+WHERE EMPNO = 7698
+;
+
+--부서 번호가 30번인 사람. + 직업이 CLERK
+SELECT * FROM EMP
+WHERE DEPTNO = 30 OR JOB ='CLERK'
+;
+
+-- 부서번호가 20 이거나 직업이 세일즈맨
+SELECT * FROM EMP
+WHERE DEPTNO = 20 OR JOB ='SALESMAN'
+;
+
+-- SAL 이 3000 이상
+SELECT * FROM EMP
+WHERE SAL >=3000
+;
+
+-- 이름이 S 이상?..?   문자열로도 순위 비교를 할 수 있음...
+SELECT * FROM EMP
+WHERE ENAME >= 'S'
+;
+
+-- 부정,,  != / <> / ^=   보통은 !=과 <>를 자주씀
+SELECT * FROM EMP
+WHERE SAL != 3000;
+
+--JOB 이 MANAGER  SALESMAN, CLERK
+SELECT * FROM EMP
+WHERE JOB = 'MANAGER' OR JOB = 'SALESMAN' OR JOB = 'CLERK'
+ORDER BY JOB ASC
+;
+
+SELECT * FROM EMP
+WHERE JOB IN ('MANAGER', 'SALESMAN','CLERK')
+ORDER BY JOB ASC
+;
+
+-- 부정 선택
+SELECT * FROM EMP
+WHERE JOB NOT IN ('MANAGER', 'SALESMAN','CLERK')
+ORDER BY JOB ASC
+;
+
+--부서번호 10,20 
+SELECT * FROM EMP
+WHERE DEPTNO IN(10,20)
+--WHERE DEPTNO = 10 OR DEPTNO = 20
+ORDER BY DEPTNO
+;
+
+--월급이 2000~3000 사이
+SELECT * FROM EMP
+WHERE SAL >=2000 AND SAL <=3000
+ORDER BY SAL
+;
+
+SELECT * FROM EMP
+WHERE SAL BETWEEN 2000 AND 3000
+ORDER BY SAL
+;
+
+--2000 보다작고 3000보다 큰
+SELECT * FROM EMP
+WHERE SAL <=2000 OR SAL >=3000
+ORDER BY SAL
+;
+
+SELECT * FROM EMP
+WHERE SAL NOT BETWEEN 2000 AND 3000
+ORDER BY SAL
+;
+
+-- 검색...  % 는 길이와 상관 없는 모든 글자
+-- 전체 일치는 = 으로.,  일부 일치는 LIKE를 활용핝다
+SELECT * FROM EMP
+--WHERE ENAME = 'MARTIN'
+--WHERE ENAME LIKE 'M%'  
+WHERE ENAME LIKE '%ER'
+;
+
+-- 두번째 글자가 L 인 사람   _ 는 한글자
+SELECT * FROM EMP
+WHERE ENAME LIKE '_L%'
+--WHERE ENAME LIKE '%M%'  
+;
+
+--NULL 조회하기   
+-- NULL 은 "=" 으로 조회가 안된다..  IS 함수를 사용!  NOT 도 동시적용 가능
+SELECT * FROM EMP
+WHERE COMM IS NULL
+--WHERE COMM IS NOT NULL
+;
+
+-- 합집합 UNION        대상이되는 테이블이 같을 때 사용 가능함...  < 중복값 x >
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+WHERE DEPTNO = 20
+UNION
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+WHERE DEPTNO = 30;
+
+-- 합집합 UNION ALL      < 중복값 O > 
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+WHERE DEPTNO = 10
+UNION ALL
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+WHERE DEPTNO = 10;
+
+-- 차집합   A - B
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+MINUS
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+WHERE DEPTNO = 10;
+
+-- 교집합
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+INTERSECT
+SELECT EMPNO, ENAME, SAL, DEPTNO FROM EMP
+WHERE DEPTNO = 10;
+
+
