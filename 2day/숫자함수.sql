@@ -1,0 +1,29 @@
+--숫자 함수 
+
+--ROUND  반올림. 음수를 쓰면 앞에서 끊음.
+SELECT ROUND(1234.5678) AS ROUND01,
+       ROUND(1234.5678,0) AS ROUND02,
+       ROUND(1234.5678,1) AS ROUND03,
+       ROUND(1234.5678,2) AS ROUND04,
+       ROUND(1234.5678,-2) AS ROUND05 
+       FROM DUAL;
+       
+-- TRUNC 버림. 지정위치까지 표시
+SELECT TRUNC(1234.5678) AS TRUNC01,
+       TRUNC(1234.5678,1) AS TRUNC02,
+       TRUNC(1234.5678,2) AS TRUNC03,
+       TRUNC(1234.5678,-1) AS TRUNC04
+       FROM DUAL;
+       
+--CEIL, FLOOR  정수변환 올림, 내림
+SELECT CEIL(1234.5678) AS CEIL01,
+       FLOOR(1234.5678) AS FLOOR01,
+       CEIL(3.14) AS CEIL02,
+       FLOOR(3.14) AS FLOOR02
+       FROM DUAL;
+       
+-- MOD    나머지함수..
+SELECT MOD(13,4) AS MOD01,
+       MOD(15,4) AS MOD02
+       FROM DUAL;
+       
