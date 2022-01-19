@@ -23,7 +23,7 @@ SELECT EMPNO, ENAME, HIREDATE, SYSDATE,
        trunc(MONTHS_BETWEEN(SYSDATE,HIREDATE)/12) AS 근속년수
 FROM EMP;
 
-
+-- 현재 기준으로 다음 오는 월요일의 날짜, 이달의 마지막 날짜
 SELECT SYSDATE,
        NEXT_DAY(SYSDATE,'월요일'),
        LAST_DAY(SYSDATE)
