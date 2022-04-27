@@ -95,5 +95,5 @@ WHERE EMPNO IN (
 
 -- INSERT INT TABLE 명 () VALUES ();
 -- DELETE FROM TABLE 명 WHERE 조건; 
--- UPDATE TABLE 명 SET 컬럼 명 WHERE 조건;
+-- UPDATE TABLE 명 SET 컬럼명 = 수정할 값 WHERE 조건;
 
